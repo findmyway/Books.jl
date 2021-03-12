@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Rik Huijzer" />
+  <title>Book – Books.jl</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+ 
+<div class="books-outside">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Books.jl</a>
+</div><br />
+<span class="books-subtitle">
+Create books with Julia
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="getting-started.html"><b>2</b> Getting started</a></li>
+<li><a class="menu-level-2" href="metadata.html"><b>2.1</b> metadata.yml</a></li>
+<li><a class="menu-level-2" href="config.html"><b>2.2</b> config.toml</a></li>
+<li><a class="menu-level-2" href="templates.html"><b>2.3</b> Templates</a></li>
+<li><a class="menu-level-1" href="demo.html"><b>3</b> Demo</a></li>
+<li><a class="menu-level-2" href="embedding-code.html"><b>3.1</b> Embedding code</a></li>
+<li><a class="menu-level-2" href="code-blocks.html"><b>3.2</b> Showing code blocks</a></li>
+<li><a class="menu-level-2" href="plots.html"><b>3.3</b> Plots</a></li>
+<li><a class="menu-level-2" href="other-notes.html"><b>3.4</b> Other notes</a></li>
+<li><a class="menu-level-1" href="references.html"><b></b> eferences</a></li>
+</div>
+</aside>
+ 
+<div class="books-content"> 
+<h2 data-number="3.1" id="sec:embedding-code"><span class="header-section-number">3.1</span> Embedding code</h2>
+<p>For embedding code, you can use the <code>include-files</code> Lua filter. This package can automatically run methods based on the included filenames. For example, generate a Markdown file <code>sum.md</code> with Julia and include it with</p>
+<pre>
+```{.include}
+_generated/julia_version.md
+```
+</pre>
+<p>Then, in your package, define the method <code>julia_version</code>:</p>
+<pre><code>julia_version() = &quot;This book is built with Julia $VERSION.&quot;</code></pre>
+<p>Next, ensure that you call <code>Books.generate_content(; M = Foo)</code>, where <code>Foo</code> is the name of your module. This will place the text</p>
+<pre><code>This book is built with Julia 1.6.0-rc1.</code></pre>
+<p>at the aforementioned path so that it can be included by Pandoc. Note that it doesn’t matter where you define the function <code>julia_version</code>, as long as it is in your module.</p>
+<p>Of these evaluated methods, the output is passed through <code>convert_output(path, out::T)</code> where <code>T</code> can, for example, be a DataFrame. To show this, we define a method</p>
+<pre><code>df_example() = DataFrame(X = [1, 2], Y = [&quot;a&quot;, &quot;b&quot;])</code></pre>
+<p>and add its output to the Markdown file with</p>
+<pre>
+```{.include}
+_generated/df_example_def.md
+```
+</pre>
+<p>Then, it will show</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X</th>
+<th style="text-align: right;">Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">a</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">b</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>outputs</code> to show multiple objects:</p>
+<pre><code>multiple_df_example() =
+    outputs([DataFrame(Z = [3]), DataFrame(U = [4, 5], V = [6, 7])])</code></pre>
+<p>which will appear as</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Z</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">U</th>
+<th style="text-align: right;">V</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+<p>See Section <a href="/plots.html#sec:plots">3.3</a> for showing multiple plots.</p>
+ 
+<div class="license">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    Rik Huijzer
+</div>
+</body>
+</html>
+
+</div>
+</div>

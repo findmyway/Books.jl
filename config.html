@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Rik Huijzer" />
+  <title>Book – Books.jl</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+ 
+<div class="books-outside">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Books.jl</a>
+</div><br />
+<span class="books-subtitle">
+Create books with Julia
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="getting-started.html"><b>2</b> Getting started</a></li>
+<li><a class="menu-level-2" href="metadata.html"><b>2.1</b> metadata.yml</a></li>
+<li><a class="menu-level-2" href="config.html"><b>2.2</b> config.toml</a></li>
+<li><a class="menu-level-2" href="templates.html"><b>2.3</b> Templates</a></li>
+<li><a class="menu-level-1" href="demo.html"><b>3</b> Demo</a></li>
+<li><a class="menu-level-2" href="embedding-code.html"><b>3.1</b> Embedding code</a></li>
+<li><a class="menu-level-2" href="code-blocks.html"><b>3.2</b> Showing code blocks</a></li>
+<li><a class="menu-level-2" href="plots.html"><b>3.3</b> Plots</a></li>
+<li><a class="menu-level-2" href="other-notes.html"><b>3.4</b> Other notes</a></li>
+<li><a class="menu-level-1" href="references.html"><b></b> eferences</a></li>
+</div>
+</aside>
+ 
+<div class="books-content"> 
+<h2 data-number="2.2" id="sec:config"><span class="header-section-number">2.2</span> config.toml</h2>
+<p>The <code>config.toml</code> file is used by Books.jl. Settings in this file affect how Pandoc is called. In <code>config.toml</code>, you can define multiple projects; at least define <code>projects.default</code>. The settings of <code>projects.default</code> are used when you call <code>pdf()</code> or <code>serve()</code>. To use other settings, for example the settings for <code>dev</code>, use <code>pdf(project="dev")</code> or <code>serve(project="dev")</code>.</p>
+<p>Below, the default configuration is shown. When not defining a <code>config.toml</code> file or omitting any of the settings, such as <code>port</code>, these defaults will be used. The benefit of multiple projects is, for example, that you can run a <code>dev</code> project locally which contains more information than the <code>default</code> project. One example could be where you write a paper, book or report and have a page with some notes.</p>
+<p>The meaning of <code>contents</code> is discussed in Section <a href="/config.html#sec:about_contents">2.2.1</a>. The <code>pdf_filename</code> is used by <code>pdf()</code> and the <code>port</code> setting is used by <code>serve()</code>.</p>
+<pre><code>[projects]
+
+  # Default project, used when calling serve() or pdf().
+  [projects.default]
+  contents = [
+    &quot;introduction&quot;,
+    &quot;analysis&quot;,
+    &quot;references&quot;
+  ]
+
+  # Output pdf or docx filename.
+  output_filename = &quot;analysis&quot;
+
+  # Port used by serve().
+  port = 8010
+
+  # Alternative project, used when calling, for example, serve(project=&quot;develop&quot;).
+  [projects.dev]
+  contents = [
+    &quot;introduction&quot;,
+    &quot;analysis&quot;,
+    &quot;notes&quot;,
+    &quot;references&quot;
+  ]
+
+  output_filename = &quot;analysis-with-notes&quot;
+
+  port = 8011
+</code></pre>
+<h3 data-number="2.2.1" id="sec:about_contents"><span class="header-section-number">2.2.1</span> About contents</h3>
+<p>The files listed in <code>contents</code> are read from the <code>contents/</code> directory and passed to Pandoc in the order specified by this list. It doesn’t matter whether the files contain headings or at what levels the heading are. Pandoc will just place the texts behind each other.</p>
+<p>This list doesn’t mention <code>index.md</code> located at the root directory of your project. <code>index.md</code> is added automatically when generating html output and will be the <a href="/">homepage</a> for the website. It typically contains the link to the generated PDF.</p>
+ 
+<div class="license">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    Rik Huijzer
+</div>
+</body>
+</html>
+
+</div>
+</div>

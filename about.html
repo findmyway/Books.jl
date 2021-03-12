@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Rik Huijzer" />
+  <title>Book – Books.jl</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+ 
+<div class="books-outside">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Books.jl</a>
+</div><br />
+<span class="books-subtitle">
+Create books with Julia
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="getting-started.html"><b>2</b> Getting started</a></li>
+<li><a class="menu-level-2" href="metadata.html"><b>2.1</b> metadata.yml</a></li>
+<li><a class="menu-level-2" href="config.html"><b>2.2</b> config.toml</a></li>
+<li><a class="menu-level-2" href="templates.html"><b>2.3</b> Templates</a></li>
+<li><a class="menu-level-1" href="demo.html"><b>3</b> Demo</a></li>
+<li><a class="menu-level-2" href="embedding-code.html"><b>3.1</b> Embedding code</a></li>
+<li><a class="menu-level-2" href="code-blocks.html"><b>3.2</b> Showing code blocks</a></li>
+<li><a class="menu-level-2" href="plots.html"><b>3.3</b> Plots</a></li>
+<li><a class="menu-level-2" href="other-notes.html"><b>3.4</b> Other notes</a></li>
+<li><a class="menu-level-1" href="references.html"><b></b> eferences</a></li>
+</div>
+</aside>
+ 
+<div class="books-content"> 
+<h1 data-number="1" id="sec:about"><span class="header-section-number">1</span> About</h1>
+<p>Basically, this package is a wrapper around <a href="https://pandoc.org/" target="_blank">Pandoc</a>; similar to <a href="https://bookdown.org" target="_blank">Bookdown</a>. Note that Pandoc does the heavy lifting and this package adds features on top. For websites, this package allows for:</p>
+<ul>
+<li>Building a website spanning multiple pages.</li>
+<li>Live reloading the website to see changes quickly; thanks to Pandoc and <a href="https://github.com/tlienart/LiveServer.jl" target="_blank">LiveServer.jl</a>.</li>
+<li>Cross-references from one web page to a section on another page.</li>
+<li>Embedding dynamic output, while still allowing normal Julia package utilities, such as unit testing and live reloading (Revise.jl).</li>
+<li>Showing code blocks as well as output.</li>
+</ul>
+<p>If you don’t need PDFs or EPUBs, then <a href="https://github.com/tlienart/Franklin.jl" target="_blank">Franklin.jl</a> is probably a better choice. To create single pages and PDFs containing code blocks, see <a href="https://github.com/JunoLab/Weave.jl" target="_blank">Weave.jl</a>.</p>
+<p>One of the main differences with Franklin.jl, Weave.jl and knitr (Bookdown) is that this package completely decouples the computations from the building of the output. The benefit of this is that you can spawn two separate processes, namely the one to serve your webpages:</p>
+<pre><code>$ julia --project -e &#39;using Books; serve()&#39;
+Watching ./pandoc/favicon.png
+Watching ./src/plots.jl
+[...]
+ ✓ LiveServer listening on http://localhost:8001/ ...
+  (use CTRL+C to shut down)
+</code></pre>
+<p>and the one where you do the computations for your package <code>Foo</code>:</p>
+<pre><code>$ julia --project -e  &#39;using Books; using Foo; M = Foo&#39;
+
+julia&gt; Books.generate_content(; M)
+Running example() for _generated/example.md
+Running julia_version() for _generated/julia_version.md
+Running example_plot() for _generated/example_plot.md
+Writing plot images for example_plot
+[...]
+</code></pre>
+<p>This way, the website remains responsive when the computations are running. Thanks to LiveServer.jl and Pandoc, updating the page after changing text or code takes less than a second. Also, because the <code>serve</code> process does relatively few things, it doesn’t often crash. A drawback of this decoupling is that you need to link your text to the correct computation in the Markdown file, whereas in other packages you would insert the code as a string.</p>
+<p>The decoupling also allows the output, which you want to include, to be evaluated inside your package, see Section <a href="/embedding-code.html#sec:embedding-code">3.1</a>. This means that you don’t have to define all your dependencies in a <code>@setup</code> (Documenter.jl) or <code># hideall</code> (Franklin.jl / Literate.jl) code block. (Granted, you could work your way around it by only calling methods inside a package.) The dependencies, such as <code>using DataFrames</code>, are available from your package. This provides all the benefits which Julia packages normally have, such as unit testing and live reloading via Revise.jl.</p>
+ 
+<div class="license">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    Rik Huijzer
+</div>
+</body>
+</html>
+
+</div>
+</div>

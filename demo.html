@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Rik Huijzer" />
+  <title>Book – Books.jl</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+ 
+<div class="books-outside">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Books.jl</a>
+</div><br />
+<span class="books-subtitle">
+Create books with Julia
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="getting-started.html"><b>2</b> Getting started</a></li>
+<li><a class="menu-level-2" href="metadata.html"><b>2.1</b> metadata.yml</a></li>
+<li><a class="menu-level-2" href="config.html"><b>2.2</b> config.toml</a></li>
+<li><a class="menu-level-2" href="templates.html"><b>2.3</b> Templates</a></li>
+<li><a class="menu-level-1" href="demo.html"><b>3</b> Demo</a></li>
+<li><a class="menu-level-2" href="embedding-code.html"><b>3.1</b> Embedding code</a></li>
+<li><a class="menu-level-2" href="code-blocks.html"><b>3.2</b> Showing code blocks</a></li>
+<li><a class="menu-level-2" href="plots.html"><b>3.3</b> Plots</a></li>
+<li><a class="menu-level-2" href="other-notes.html"><b>3.4</b> Other notes</a></li>
+<li><a class="menu-level-1" href="references.html"><b></b> eferences</a></li>
+</div>
+</aside>
+ 
+<div class="books-content"> 
+<h1 data-number="3" id="sec:demo"><span class="header-section-number">3</span> Demo</h1>
+<p>We can refer to a section with the normal <a href="https://lierdakil.github.io/pandoc-crossref/" target="_blank">pandoc-crossref</a> syntax. For example,</p>
+<pre>
+See @sec:getting-started.
+</pre>
+<blockquote>
+<p>See Section <a href="/getting-started.html#sec:getting-started">2</a>.</p>
+</blockquote>
+<p>We can refer to citations such as <span class="citation" data-cites="orwell1945animal">Orwell (<a href="/references.html#ref-orwell1945animal" role="doc-biblioref">1945</a>)</span> and <span class="citation" data-cites="orwell1945animal">(Orwell, <a href="/references.html#ref-orwell1945animal" role="doc-biblioref">1945</a>)</span> or to equations like Equation <a href="#eq:sin">1</a>.</p>
+<p><span id="eq:sin"><br /><span class="math display"><em>y</em> = <em>s</em><em>i</em><em>n</em>(<em>x</em>)   (1)</span><br /></span></p>
+ 
+<div class="license">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    Rik Huijzer
+</div>
+</body>
+</html>
+
+</div>
+</div>

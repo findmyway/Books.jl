@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Rik Huijzer" />
+  <title>Book – Books.jl</title>
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+ 
+<div class="books-outside">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="/">Books.jl</a>
+</div><br />
+<span class="books-subtitle">
+Create books with Julia
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="getting-started.html"><b>2</b> Getting started</a></li>
+<li><a class="menu-level-2" href="metadata.html"><b>2.1</b> metadata.yml</a></li>
+<li><a class="menu-level-2" href="config.html"><b>2.2</b> config.toml</a></li>
+<li><a class="menu-level-2" href="templates.html"><b>2.3</b> Templates</a></li>
+<li><a class="menu-level-1" href="demo.html"><b>3</b> Demo</a></li>
+<li><a class="menu-level-2" href="embedding-code.html"><b>3.1</b> Embedding code</a></li>
+<li><a class="menu-level-2" href="code-blocks.html"><b>3.2</b> Showing code blocks</a></li>
+<li><a class="menu-level-2" href="plots.html"><b>3.3</b> Plots</a></li>
+<li><a class="menu-level-2" href="other-notes.html"><b>3.4</b> Other notes</a></li>
+<li><a class="menu-level-1" href="references.html"><b></b> eferences</a></li>
+</div>
+</aside>
+ 
+<div class="books-content"> 
+<h2 data-number="3.3" id="sec:plots"><span class="header-section-number">3.3</span> Plots</h2>
+<p>Conversions for Gadfly are also included, see Figure <a href="#fig:example_plot">1</a>. This is actually a bit tricky, because we want to show vector graphics (SVG) on the web, but these are not supported (well) by LaTeX. Therefore, portable network graphics (PNG) images are passed to LaTeX via cairosvg; I found that this tool does the best conversions without relying on Cairo.jl. (Cairo.jl doesn’t work for me on NixOS.)</p>
+<pre><code>using Gadfly
+
+X = 1:30
+plot(x = X, y = X.^2)</code></pre>
+<figure>
+<img src="/im/example_plot.svg" id="fig:example_plot" alt="" /><figcaption>Figure 1: Example plot.</figcaption>
+</figure>
+<p>If the output is a string instead of the output you expected, then check whether you load the related packages in time. For example, for this Gadfly plot, you need to load Gadfly.jl together with Books.jl for Requires.jl to work.</p>
+<p>For multiple images, use <code>outputs(paths, objects)</code>:</p>
+<pre><code>function multiple_example_plots()
+    paths = [&quot;example_plot_$i&quot; for i in 2:3]
+    X = 1:30
+    objects = [
+        plot(x = X, y = X),
+        plot(x = X, y = X.^3)
+    ]
+    outputs(paths, objects)
+end</code></pre>
+<p>Resulting in Figure <a href="#fig:example_plot_2">2</a> and Figure <a href="#fig:example_plot_3">3</a>:</p>
+<figure>
+<img src="/im/example_plot_2.svg" id="fig:example_plot_2" alt="" /><figcaption>Figure 2: Example plot 2.</figcaption>
+</figure>
+<figure>
+<img src="/im/example_plot_3.svg" id="fig:example_plot_3" alt="" /><figcaption>Figure 3: Example plot 3.</figcaption>
+</figure>
+ 
+<div class="license">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+    Rik Huijzer
+</div>
+</body>
+</html>
+
+</div>
+</div>
